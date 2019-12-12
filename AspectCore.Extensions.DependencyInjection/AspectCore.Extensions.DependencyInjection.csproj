@@ -13,10 +13,10 @@
     <Authors>Lemon</Authors>
     <Product>AspectCore Framework</Product>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/19426425?v=3&amp;s=200</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/AspectCore/AspectCore.Extensions.DependencyInjection</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dotnetcore/AspectCore-Framework</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/dotnetcore/AspectCore-Framework/blob/dev/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/AspectCore/AspectCore.Extensions.DependencyInjection</RepositoryUrl>
+    <RepositoryUrl>https://github.com/dotnetcore/AspectCore-Framework</RepositoryUrl>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -24,7 +24,7 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <PropertyGroup>
-    <VersionPrefix>0.3.1</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <VersionSuffix>
     </VersionSuffix>
     <Version>$(VersionPrefix)$(VersionSuffix)</Version>
@@ -32,7 +32,8 @@
     <FileVersion>$(VersionPrefix).0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspectCore.Core" Version="0.3.1" />
+    <PackageReference Include="AspectCore.Core" Version="2.0.0" Condition="'$(TargetFramework)'=='net451'" />
+    <PackageReference Include="AspectCore.Core" Version="0.4.0" Condition="'$(TargetFramework)'=='netstandard1.6'" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
   </ItemGroup>
 </Project>

@@ -3,45 +3,43 @@ using System.Linq;
 using AspectCore.Configuration;
 using AspectCore.DynamicProxy;
 using AspectCore.DynamicProxy.Parameters;
-using AspectCore.Injector;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+#if NET451
+using AspectCore.DependencyInjection;
 
-namespace AspectCore.Extensions.DependencyInjection
-{
-    public static class ServiceCollectionExtensions
-    {
-        public static IServiceCollection AddDynamicProxy(this IServiceCollection services, Action<IAspectConfiguration> configure = null)
-        {
-            if (services == null)
-            {
+#else
+using AspectCore.Injector;
+
+#endif
+
+namespace AspectCore.Extensions.DependencyInjection {
+    public static class ServiceCollectionExtensions {
+        public static IServiceCollection AddDynamicProxy(this IServiceCollection services, Action<IAspectConfiguration> configure = null) {
+            if (services == null) {
                 throw new ArgumentNullException(nameof(services));
             }
 
             var configurationService = services.LastOrDefault(x => x.ServiceType == typeof(IAspectConfiguration) && x.ImplementationInstance != null);
-            var configuration = (IAspectConfiguration)configurationService?.ImplementationInstance ?? new AspectConfiguration();
+            var configuration = (IAspectConfiguration) configurationService?.ImplementationInstance ?? new AspectConfiguration();
             configure?.Invoke(configuration);
 
-            if (configurationService == null)
-            {
+            if (configurationService == null) {
                 services.AddSingleton<IAspectConfiguration>(configuration);
             }
 
             return services;
         }
 
-        internal static IServiceCollection TryAddDynamicProxyServices(this IServiceCollection services)
-        {
-            if (services == null)
-            {
+        internal static IServiceCollection TryAddDynamicProxyServices(this IServiceCollection services) {
+            if (services == null) {
                 throw new ArgumentNullException(nameof(services));
             }
 
             var configurationService = services.LastOrDefault(x => x.ServiceType == typeof(IAspectConfiguration) && x.ImplementationInstance != null);
-            var configuration = (IAspectConfiguration)configurationService?.ImplementationInstance ?? new AspectConfiguration();
+            var configuration = (IAspectConfiguration) configurationService?.ImplementationInstance ?? new AspectConfiguration();
 
-            if (configurationService == null)
-            {
+            if (configurationService == null) {
                 services.AddSingleton<IAspectConfiguration>(configuration);
             }
 

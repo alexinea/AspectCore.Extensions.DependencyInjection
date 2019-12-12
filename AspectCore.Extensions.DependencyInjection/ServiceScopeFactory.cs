@@ -1,19 +1,21 @@
-﻿using AspectCore.Injector;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+#if NET451
+using AspectCore.DependencyInjection;
 
-namespace AspectCore.Extensions.DependencyInjection
-{
-    internal class ServiceScopeFactory : IServiceScopeFactory
-    {
+#else
+using AspectCore.Injector;
+
+#endif
+
+namespace AspectCore.Extensions.DependencyInjection {
+    internal class ServiceScopeFactory : IServiceScopeFactory {
         private readonly IServiceResolver _serviceResolver;
 
-        public ServiceScopeFactory(IServiceResolver serviceResolver)
-        {
+        public ServiceScopeFactory(IServiceResolver serviceResolver) {
             _serviceResolver = serviceResolver;
         }
 
-        public IServiceScope CreateScope()
-        {
+        public IServiceScope CreateScope() {
             return new ServiceScope(_serviceResolver.CreateScope());
         }
     }

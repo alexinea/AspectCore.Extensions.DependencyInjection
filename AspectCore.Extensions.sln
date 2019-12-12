@@ -9,6 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{1224A4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection.Sample", "DependencyInjection.Sample\DependencyInjection.Sample.csproj", "{52A2F212-3474-4B69-9938-33132D7FA918}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{F841E59F-C57B-4C41-AB77-59323D83FB58}"
+ProjectSection(SolutionItems) = preProject
+	LICENSE = LICENSE
+	Publish.bat = Publish.bat
+	README.md = README.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
