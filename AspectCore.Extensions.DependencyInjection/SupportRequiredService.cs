@@ -2,11 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 #if NET451
 using AspectCore.DependencyInjection;
-
 #else
 using AspectCore.Injector;
 
 #endif
+
 namespace AspectCore.Extensions.DependencyInjection {
     internal class SupportRequiredService : ISupportRequiredService {
         private readonly IServiceResolver _serviceResolver;

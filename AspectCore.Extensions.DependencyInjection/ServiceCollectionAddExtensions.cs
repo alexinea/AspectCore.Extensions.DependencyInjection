@@ -18,8 +18,8 @@ namespace AspectCore.Extensions.DependencyInjection {
                 throw new ArgumentException($"{interfaceType} should be interface.");
             }
 
-            services.Add(ServiceDescriptor.Describe(interfaceType, provider => provider.GetRequiredService<IProxyGenerator>().CreateInterfaceProxy(interfaceType),
-                serviceLifetime));
+            services.Add(ServiceDescriptor.Describe(interfaceType,
+                provider => provider.GetRequiredService<IProxyGenerator>().CreateInterfaceProxy(interfaceType), serviceLifetime));
             return services;
         }
 

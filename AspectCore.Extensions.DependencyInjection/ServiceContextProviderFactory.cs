@@ -13,9 +13,9 @@ using IServiceContext = AspectCore.Injector.IServiceContainer;
 
 namespace AspectCore.Extensions.DependencyInjection {
     [NonAspect]
-    public class AspectCoreServiceProviderFactory : IServiceProviderFactory<IServiceContext> {
+    public class ServiceContextProviderFactory : IServiceProviderFactory<IServiceContext> {
         public IServiceContext CreateBuilder(IServiceCollection services) {
-            return services.ToServiceContainer();
+            return services.ToServiceContext();
         }
 
         public IServiceProvider CreateServiceProvider(IServiceContext containerBuilder) {

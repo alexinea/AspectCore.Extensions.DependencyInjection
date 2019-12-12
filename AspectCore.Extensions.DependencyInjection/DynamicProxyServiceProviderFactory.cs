@@ -8,7 +8,7 @@ namespace AspectCore.Extensions.DependencyInjection {
         }
 
         public IServiceProvider CreateServiceProvider(IServiceCollection containerBuilder) {
-            return containerBuilder.BuildAspectCoreServiceProvider();
+            return containerBuilder.BuildDynamicProxyProvider();
         }
     }
 }

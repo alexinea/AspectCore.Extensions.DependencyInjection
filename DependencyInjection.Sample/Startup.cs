@@ -12,32 +12,26 @@ using AspectCore.Configuration;
 using System.Reflection;
 using System.Diagnostics;
 
-namespace DependencyInjection.Sample
-{
-    public class Startup
-    {
-        public Startup(IHostingEnvironment env)
-        {
+namespace DependencyInjection.Sample {
+    public class Startup {
+        public Startup(IHostingEnvironment env) {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                         .SetBasePath(env.ContentRootPath)
+                         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                         .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                         .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
+        public IServiceProvider ConfigureServices(IServiceCollection services) {
             // Add framework services.
             services.AddMvc().AddControllersAsServices();
 
-            services.AddDynamicProxy(config =>
-            {
-                config.Interceptors.AddDelegate(async (context, next) =>
-                {
+            services.AddDynamicProxy(config => {
+                config.Interceptors.AddDelegate(async (context, next) => {
                     Stopwatch stopwatch = Stopwatch.StartNew();
                     await next(context);
                     stopwatch.Stop();
@@ -51,29 +45,25 @@ namespace DependencyInjection.Sample
                 });
             });
 
-            return services.BuildAspectCoreServiceProvider();
+            return services.BuildDynamicProxyProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 //app.UseBrowserLink();
             }
-            else
-            {
+            else {
                 app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
+            app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

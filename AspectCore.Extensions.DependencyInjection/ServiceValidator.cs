@@ -54,12 +54,13 @@ namespace AspectCore.Extensions.DependencyInjection {
             if (descriptor.ImplementationType != null) {
                 return descriptor.ImplementationType;
             }
-            else if (descriptor.ImplementationInstance != null) {
+
+            if (descriptor.ImplementationInstance != null) {
                 return descriptor.ImplementationInstance.GetType();
             }
-            else if (descriptor.ImplementationFactory != null) {
-                var typeArguments = descriptor.ImplementationFactory.GetType().GenericTypeArguments;
 
+            if (descriptor.ImplementationFactory != null) {
+                var typeArguments = descriptor.ImplementationFactory.GetType().GenericTypeArguments;
                 return typeArguments[1];
             }
 
